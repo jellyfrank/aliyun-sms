@@ -2,4 +2,5 @@
 # @Time    : 2019-09-26
 # @Author  : Kevin Kong (kfx2007@163.com)
 
-from . import sms
+__version__ = "0.0.1"
+__author__ = "Kevin Kong"

@@ -38,14 +38,14 @@ class Sms(object):
         return data
 
     def get_to_sign(self, data):
-        return "&".join("{}={}".format(key, urllib.parse.quote_plus(data[key].encode('utf-8'))) for key in sorted(data.keys()) if data[key])
+        return "&".join("{}={}".format(key, urllib.parse.quote(data[key].encode('utf-8'))) for key in sorted(data.keys()) if data[key])
 
     def sign(self, data):
         """
         签名算法
         """
         ss = 'GET&{}&{}'.format(urllib.parse.quote_plus(
-            "/"), urllib.parse.quote_plus(self.get_to_sign(data)))
+            "/"), urllib.parse.quote(self.get_to_sign(data)))
         hashstr = hmac.new("{}&".format(self.secret).encode(
             "utf-8"), ss.encode("utf-8"), sha1).digest()
         return base64.b64encode(hashstr).decode("utf-8")
@@ -73,6 +73,6 @@ class Sms(object):
 
         # 使用http get发送请求
         url = "{}/?Signature={}&{}".format(URL,
-                                           urllib.parse.quote_plus(sign), signature)
+                                           urllib.parse.quote(sign), signature)
         res = requests.get(url).json()
         return res

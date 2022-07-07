@@ -38,7 +38,8 @@ class Sms(object):
         return data
 
     def get_to_sign(self, data):
-        return "&".join("{}={}".format(key, urllib.parse.quote(data[key].encode('utf-8'))) for key in sorted(data.keys()) if data[key])
+        return "&".join("{}={}".format(key, urllib.parse.quote_plus(data[key].encode('utf-8'))) for key in sorted(data.keys()) if data[key])
+
 
     def sign(self, data):
         """

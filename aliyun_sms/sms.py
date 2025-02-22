@@ -45,7 +45,7 @@ class Sms(object):
         """
         签名算法
         """
-        ss = 'GET&{}&{}'.format(urllib.parse.quote_plus(
+        ss = 'GET&{}&{}'.format(urllib.parse.quote(
             "/"), urllib.parse.quote(self.get_to_sign(data)))
         hashstr = hmac.new("{}&".format(self.secret).encode(
             "utf-8"), ss.encode("utf-8"), sha1).digest()

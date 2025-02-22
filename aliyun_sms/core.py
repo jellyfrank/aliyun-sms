@@ -40,7 +40,7 @@ class Core(object):
 
     def get_to_sign(self, data):
         return "&".join(
-            "{}={}".format(key, urllib.parse.quote_plus(data[key].encode("utf-8")))
+            "{}={}".format(key, urllib.parse.quote(data[key].encode("utf-8"), safe=""))
             for key in sorted(data.keys())
             if data[key]
         )
@@ -52,7 +52,6 @@ class Core(object):
         ss = "GET&{}&{}".format(
             urllib.parse.quote("/",safe=""), urllib.parse.quote(self.get_to_sign(data), safe="")
         )
-        print(ss)
         hashstr = hmac.new(
             "{}&".format(self.secret).encode("utf-8"), ss.encode("utf-8"), sha1
         ).digest()
